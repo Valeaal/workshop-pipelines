@@ -169,13 +169,6 @@ spec:
             steps {
                 echo '-=- run software composition analysis -=-'
                 sh './mvnw dependency-check:check'
-                dependencyCheckPublisher
-            }
-        }
-        stage('Software composition analysis') {
-            steps {
-                echo '-=- run software composition analysis -=-'
-                sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
                     unstableTotalCritical: qualityGates.security.dependencies.critical.unstable,
