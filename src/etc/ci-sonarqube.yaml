@@ -99,6 +99,8 @@ spec:
       labels:
         app: ci-sonarqube-data
     spec:
+      securityContext:
+        fsGroup: 999
       containers:
         - name: postgres
           image: docker.io/postgres:13.7

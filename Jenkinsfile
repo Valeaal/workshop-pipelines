@@ -154,6 +154,17 @@ spec:
                 perfReport sourceDataFiles: 'target/jmeter/results/*.csv'
             }
         }
+        stage('Code inspection & quality gate') {
+            steps {
+                echo '-=- run code inspection & check quality gate -=-'
+                withSonarQubeEnv('ci-sonarqube') {
+                    sh './mvnw sonar:sonar'
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('Promote container image') {
             steps {
                 echo '-=- promote container image -=-'
