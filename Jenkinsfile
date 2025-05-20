@@ -47,6 +47,9 @@ spec:
 '''
 }
     }
+    parameters {
+        string(name: 'LIBRERIA', defaultValue: 'libreriaA', description: 'Nombre de la librería')
+    }
 
     environment {
         APP_NAME = getPomArtifactId()
@@ -71,6 +74,21 @@ spec:
         LIGHTHOUSE_URL = credentials('ci-lighthouse-url')
     }
     stages {
+        stage('Seleccionar Libreria') {
+            steps {
+                script {
+                    def libreria = params.LIBRERIA ?: 'libreriaA'
+                    
+                    if (libreria == 'libreriaA') {
+                        echo "Usando libreriaA"
+                        // Lógica para libreriaA
+                    } else {
+                        echo "Usando libreriaB"
+                        // Lógica para libreriaB
+                    }
+                }
+            }
+        }
         stage('Prepare environment') {
             steps {
                 echo '-=- prepare environment -=-'
